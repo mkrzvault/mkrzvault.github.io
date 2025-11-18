@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Private Creator Coaching</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --bg-alt: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #1f3a8a;
+      --accent-soft: #e0e7ff;
+      --border: #e5e7eb;
+      --danger: #b91c1c;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #e0e7ff 0, #f7f7fb 40%, #f7f7fb 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      padding: 1.25rem 0 0.5rem 0;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 14px 30px rgba(30, 64, 175, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(30, 64, 175, 0.45);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--accent);
+      border-color: var(--accent-soft);
+    }
+
+    .btn-outline:hover {
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .hero {
+      padding: 4.5rem 0 3.5rem 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(129, 140, 248, 0.5);
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 3vw, 2.8rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 32rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-bullets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-bullets span::before {
+      content: "• ";
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      padding: 1.75rem 1.5rem;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    .hero-card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-card-text {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .stat-value {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .section {
+      padding: 3.5rem 0;
+    }
+
+    .section-header {
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 32rem;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .step-card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.2rem 1.1rem;
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .step-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-text {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .section-cta {
+      margin-top: 1.75rem;
+    }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      padding: 1.5rem 1.4rem;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.04);
+    }
+
+    .card-highlight {
+      border-color: rgba(129, 140, 248, 0.6);
+      box-shadow: 0 16px 40px rgba(30, 64, 175, 0.12);
+    }
+
+    .card-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-price {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .card-text {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .card-list {
+      font-size: 0.85rem;
+      padding-left: 1.1rem;
+      margin-bottom: 0.75rem;
+      color: var(--muted);
+    }
+
+    .card-list li {
+      margin-bottom: 0.25rem;
+    }
+
+    .card-outcome {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      font-style: italic;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .pill-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: var(--accent-soft);
+      border-radius: 999px;
+      padding: 0.45rem 0.8rem;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+
+    .trust-section {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 24px;
+      padding: 2rem 1.6rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .trust-item-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .trust-item-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .for-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .for-box {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.4rem 1.3rem;
+    }
+
+    .for-box-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .for-list {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding-left: 1.1rem;
+    }
+
+    .for-list li {
+      margin-bottom: 0.25rem;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem 1.75rem;
+    }
+
+    .faq-item-question {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .faq-item-answer {
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .contact-card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      padding: 1.75rem 1.5rem;
+      box-shadow: var(--shadow-soft);
+      max-width: 640px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 1.75rem;
+      align-items: flex-start;
+    }
+
+    .field {
+      margin-bottom: 0.9rem;
+    }
+
+    .field-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 0.15rem;
+    }
+
+    .field-input,
+    .field-textarea {
+      width: 100%;
+      padding: 0.6rem 0.7rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease;
+      background: #f9fafb;
+    }
+
+    .field-input:focus,
+    .field-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.45);
+      background: #ffffff;
+    }
+
+    .field-textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .contact-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      padding: 1.75rem 0 2rem 0;
+      border-top: 1px solid rgba(209, 213, 219, 0.7);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        padding-top: 3.5rem;
+      }
+
+      .hero-card {
+        margin-top: 0.75rem;
+      }
+
+      .steps-grid,
+      .packages-grid,
+      .trust-grid,
+      .for-grid,
+      .faq-grid,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="container">
+        <nav class="nav">
+          <div class="logo">
+            CREATOR COACHING STUDIO
+          </div>
+          <div class="nav-links">
+            <a href="#how">How it works</a>
+            <a href="#packages">Packages</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+            <a href="#call" class="btn btn-outline">Book a call</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div>
+              <div class="badge">
+                <span class="badge-dot"></span>
+                Private strategy for subscription based creators
+              </div>
+              <h1 class="hero-title">
+                Private professional coaching for subscription based creators
+              </h1>
+              <p class="hero-subtitle">
+                Strategy, structure, and support for creators building on platforms like OnlyFans without agencies, pressure, or account access.
+              </p>
+              <div class="hero-bullets">
+                <span>No revenue share</span>
+                <span>No account access</span>
+                <span>100% private and discreet</span>
+                <span>Clear packages and no contracts</span>
+                <span>Strategy focused, not management</span>
+              </div>
+              <div class="hero-cta" id="call">
+                <a href="#contact" class="btn btn-primary">Book a private strategy call</a>
+                <a href="#packages" class="btn btn-outline">View packages</a>
+              </div>
+              <p class="hero-note">
+                No obligation on the intro call. Camera is optional and you can stay anonymous.
+              </p>
+            </div>
+            <div>
+              <div class="hero-card">
+                <div class="hero-card-title">
+                  Strategy and systems without giving up control
+                </div>
+                <div class="hero-card-text">
+                  Coaching is focused on positioning, pricing, content structure, and growth. You stay in control of your content, your accounts, and your boundaries.
+                </div>
+                <div class="hero-stats">
+                  <div>
+                    <div class="stat-label">Focus</div>
+                    <div class="stat-value">Strategy only</div>
+                  </div>
+                  <div>
+                    <div class="stat-label">Ownership</div>
+                    <div class="stat-value">100% you</div>
+                  </div>
+                  <div>
+                    <div class="stat-label">Model</div>
+                    <div class="stat-value">No rev share</div>
+                  </div>
+                  <div>
+                    <div class="stat-label">Approach</div>
+                    <div class="stat-value">Private and discreet</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">How this works</h2>
+            <p class="section-subtitle">
+              A simple three step process that keeps you in control while adding structure and strategy to your creator business.
+            </p>
+          </div>
+          <div class="steps-grid">
+            <div class="step-card">
+              <div class="step-badge">1</div>
+              <div class="step-title">Private intro call</div>
+              <div class="step-text">
+                A low pressure 20 to 30 minute call. Camera optional. Together we review your goals, boundaries, comfort level, and the type of creator business you want to build.
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-badge">2</div>
+              <div class="step-title">Custom strategy plan</div>
+              <div class="step-text">
+                You choose a package. We create a tailored plan that covers positioning, content structure, pricing, and a 30 to 60 day roadmap based on your situation.
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-badge">3</div>
+              <div class="step-title">Ongoing support (optional)</div>
+              <div class="step-text">
+                Monthly coaching provides structure, consistency, and accountability. You stay in full control while we guide the business strategy behind your content.
+              </div>
+            </div>
+          </div>
+          <div class="section-cta">
+            <a href="#packages" class="btn btn-outline">See packages and pricing</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="packages">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Packages and pricing</h2>
+            <p class="section-subtitle">
+              Clear, fixed pricing with no revenue share and no long term contracts. You keep 100% of what you earn.
+            </p>
+          </div>
+
+          <div class="packages-grid">
+            <div class="card">
+              <div class="card-label">Package one</div>
+              <div class="card-title">Starter Launch Kit</div>
+              <div class="card-price">250 dollars</div>
+              <div class="card-text">
+                For creators preparing to launch a subscription based page with safety, clarity, and structure.
+              </div>
+              <ul class="card-list">
+                <li>One 60 minute strategy session</li>
+                <li>Privacy and anonymity checklist</li>
+                <li>Persona development for niche, tone, and positioning</li>
+                <li>Starter content kit with 20 or more tailored ideas</li>
+                <li>Pricing and paywall structure</li>
+                <li>30 day launch roadmap</li>
+              </ul>
+              <div class="card-outcome">
+                Outcome: a clear written plan instead of generic advice.
+              </div>
+              <div class="card-footer">
+                <a href="#contact" class="btn btn-outline">Book Starter Session</a>
+              </div>
+            </div>
+
+            <div class="card card-highlight">
+              <div class="card-label">Package two</div>
+              <div class="card-title">Growth Audit and Optimization</div>
+              <div class="card-price">500 dollars</div>
+              <div class="card-text">
+                For creators who are already earning and want stronger systems and higher performance.
+              </div>
+              <ul class="card-list">
+                <li>Full audit of your subscription page</li>
+                <li>Offer and pricing optimization</li>
+                <li>Content pattern and posting analysis</li>
+                <li>High converting DM and PPV script templates</li>
+                <li>60 day content calendar</li>
+                <li>Simple performance tracking sheet</li>
+              </ul>
+              <div class="card-outcome">
+                Outcome: a predictable growth system with clearer structure.
+              </div>
+              <div class="card-footer">
+                <a href="#contact" class="btn btn-primary">Book Growth Audit</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-label">Optional add on</div>
+            <div class="card-title">Monthly Creator Coaching</div>
+            <div class="card-price">From 150 dollars per month</div>
+            <p class="card-text">
+              For creators who want structured ongoing support without giving up control of their accounts or content.
+            </p>
+            <ul class="card-list">
+              <li>Two coaching sessions per month</li>
+              <li>Monthly performance review</li>
+              <li>Content and positioning feedback</li>
+              <li>Updated scripts and content prompts as needed</li>
+              <li>Email support for business questions</li>
+            </ul>
+            <p class="pill-note">
+              We never log into your accounts or message fans. You stay in full control. We focus on strategy and systems only.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="trust-section">
+            <h2 class="section-title">Discretion and control first, always</h2>
+            <p class="section-subtitle">
+              This is not an agency and not a management service. You keep full control over your content, your accounts, and your identity. The focus is on the business side: strategy, pricing, positioning, systems, and growth planning.
+            </p>
+            <p class="section-subtitle">
+              Sessions can be voice only. Real names are not required. Everything is confidential.
+            </p>
+            <div class="trust-grid">
+              <div>
+                <div class="trust-item-title">No account access</div>
+                <div class="trust-item-text">
+                  You operate your pages. We provide strategy, structure, and systems that support your goals.
+                </div>
+              </div>
+              <div>
+                <div class="trust-item-title">No pressure</div>
+                <div class="trust-item-text">
+                  Your comfort level sets the boundaries. The plan is built around what you are and are not willing to do.
+                </div>
+              </div>
+              <div>
+                <div class="trust-item-title">No revenue share</div>
+                <div class="trust-item-text">
+                  Transparent fixed pricing with no contracts, no lock ins, and no cuts of your earnings. You keep 100 percent.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Who this is for</h2>
+            <p class="section-subtitle">
+              Coaching is designed for creators who want a private, business focused approach to subscription based content.
+            </p>
+          </div>
+          <div class="for-grid">
+            <div class="for-box">
+              <div class="for-box-title">A good fit</div>
+              <ul class="for-list">
+                <li>Creators considering a subscription based page for the first time</li>
+                <li>Creators who are already earning and want better systems and consistency</li>
+                <li>People who value privacy, structure, and staying fully in control</li>
+                <li>Creators exploring anonymous or semi anonymous growth</li>
+              </ul>
+            </div>
+            <div class="for-box">
+              <div class="for-box-title">Not a good fit</div>
+              <ul class="for-list">
+                <li>Creators seeking full account management</li>
+                <li>Anyone wanting fan messaging handled for them</li>
+                <li>Agencies looking for outsourced labor</li>
+                <li>Anyone expecting guaranteed or instant results</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Frequently asked questions</h2>
+          </div>
+          <div class="faq-grid">
+            <div>
+              <div class="faq-item-question">Do you manage OnlyFans or message fans?</div>
+              <div class="faq-item-answer">
+                No. There is no direct access to your accounts. All work is focused on strategy, structure, and systems.
+              </div>
+            </div>
+            <div>
+              <div class="faq-item-question">Do you need to know my identity?</div>
+              <div class="faq-item-answer">
+                No. You can remain fully anonymous if you prefer. The focus is on your business and goals, not your real world identity.
+              </div>
+            </div>
+            <div>
+              <div class="faq-item-question">Do I need to show my face or personal information?</div>
+              <div class="faq-item-answer">
+                No. Your privacy and comfort level lead the strategy. Plans are tailored to the level of visibility you are comfortable with.
+              </div>
+            </div>
+            <div>
+              <div class="faq-item-question">Do you work with all types of creators?</div>
+              <div class="faq-item-answer">
+                Yes. Coaching supports beginners, anonymous creators, established creators, and people who are still exploring their options.
+              </div>
+            </div>
+            <div>
+              <div class="faq-item-question">Do you take a percentage of earnings?</div>
+              <div class="faq-item-answer">
+                No. All pricing is fixed and clearly listed. You keep 100 percent of your revenue.
+              </div>
+            </div>
+            <div>
+              <div class="faq-item-question">Can we work without video calls?</div>
+              <div class="faq-item-answer">
+                Yes. Voice only or text based sessions are available if that feels safer or more comfortable.
+              </div>
+            </div>
+            <div>
+              <div class="faq-item-question">What if I am not ready to start?</div>
+              <div class="faq-item-answer">
+                The Starter Launch Kit is designed for early stage creators who are still exploring and want clarity before making decisions.
+              </div>
+            </div>
+            <div>
+              <div class="faq-item-question">What platforms does this apply to?</div>
+              <div class="faq-item-answer">
+                The focus is on subscription based platforms such as OnlyFans, but the strategy principles also apply to similar creator platforms.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Ready to talk privately</h2>
+            <p class="section-subtitle">
+              If you are curious or just exploring your options, start with a no pressure intro call. There is no commitment required.
+            </p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-grid">
+              <div>
+                <form>
+                  <div class="field">
+                    <div class="field-label">Name or alias</div>
+                    <input class="field-input" type="text" placeholder="You can stay anonymous" />
+                  </div>
+                  <div class="field">
+                    <div class="field-label">Email</div>
+                    <input class="field-input" type="email" placeholder="your@email.com" />
+                  </div>
+                  <div class="field">
+                    <div class="field-label">Message</div>
+                    <textarea class="field-textarea" placeholder="Share where you are at and what you are hoping to achieve."></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Send message privately
+                  </button>
+                  <div class="contact-note">
+                    Replies are within 24 hours. You can remain anonymous throughout the process.
+                  </div>
+                </form>
+              </div>
+              <div>
+                <div class="hero-card-title">Prefer to book a call directly</div>
+                <div class="hero-card-text">
+                  Use the link below to choose a time that works for you. Video is optional for every session.
+                </div>
+                <a href="#" class="btn btn-outline" style="margin-top: 0.4rem;">Open booking calendar</a>
+                <p class="contact-note">
+                  Replace this link with your Calendly or preferred scheduling tool once you are ready.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-inner">
+          <div>
+            © 2025 Your Brand Name. Private creator coaching. Confidential. Strategy only.
+          </div>
+          <div class="footer-links">
+            <a href="#top">Home</a>
+            <a href="#packages">Packages</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
