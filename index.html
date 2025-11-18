@@ -910,19 +910,42 @@
           <div class="contact-card">
             <div class="contact-grid">
               <div>
-                <form>
+                <form action="https://formspree.io/f/mwpyebzj" method="POST">
                   <div class="field">
                     <div class="field-label">Name or alias</div>
-                    <input class="field-input" type="text" placeholder="You can stay anonymous" />
+                    <input
+                      class="field-input"
+                      type="text"
+                      name="name"
+                      placeholder="You can stay anonymous"
+                    />
                   </div>
                   <div class="field">
                     <div class="field-label">Email</div>
-                    <input class="field-input" type="email" placeholder="your@email.com" />
+                    <input
+                      class="field-input"
+                      type="email"
+                      name="email"
+                      placeholder="your@email.com"
+                      required
+                    />
                   </div>
                   <div class="field">
                     <div class="field-label">Message</div>
-                    <textarea class="field-textarea" placeholder="Share where you are at and what you are hoping to achieve."></textarea>
+                    <textarea
+                      class="field-textarea"
+                      name="message"
+                      placeholder="Share where you are at and what you are hoping to achieve."
+                      required
+                    ></textarea>
                   </div>
+
+                  <input
+                    type="hidden"
+                    name="_subject"
+                    value="New private coaching inquiry"
+                  />
+
                   <button type="submit" class="btn btn-primary">
                     Send message privately
                   </button>
